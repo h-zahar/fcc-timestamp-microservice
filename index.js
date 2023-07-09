@@ -26,10 +26,10 @@ const getDateObj = (req) => {
 
   if (strDate === "Invalid Date") return { error: strDate };
 
-  const dateElems = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).toDateString().split(' ');
+  const dateElems = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).toUTCString().split(' ');
 
   const unix = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).getTime();
-  const utc = dateElems[0].concat(', ').concat(dateElems.slice(1, dateElems.length).concat('00:00:00 GMT').join(' '));
+  const utc = dateElems.join(' ').replace(dateElems[4], "00:00:00");
 
   const dateObj = { unix, utc };
   
