@@ -20,7 +20,9 @@ app.get("/", function(req, res) {
 
 const getDateObj = (req) => {
   let { date } = req.params;
-  date = (date === undefined || date === '' || date === ' ') ? new Date().toDateString() : date;
+
+  const flag = (date === undefined || date === '') ? "now" : "regular";
+  date = (date === undefined || date === '') ? new Date().toDateString() : date;
 
   const strDate = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).toDateString();
 
@@ -28,8 +30,8 @@ const getDateObj = (req) => {
 
   const dateElems = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).toUTCString().split(' ');
 
-  const unix = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).getTime();
-  const utc = dateElems.join(' ').replace(dateElems[4], "00:00:00");
+  const unix = flag === "regular" ? new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).getTime() : new Date().getTime();
+  const utc = flag === "regular" ? dateElems.join(' ').replace(dateElems[4], "00:00:00") : new Date().toUTCString();
 
   const dateObj = { unix, utc };
   
