@@ -20,7 +20,7 @@ app.get("/", function(req, res) {
 
 const getDateObj = (req) => {
   let { date } = req.params;
-  date = date === undefined ? new Date().toDateString() : date;
+  date = (date === undefined || date === '' || date === ' ') ? new Date().toDateString() : date;
 
   const strDate = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).toDateString();
 
