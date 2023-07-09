@@ -29,12 +29,11 @@ const getDateObj = (req) => {
   const dateElems = new Date((date.includes('-') || date.includes(' ')) ? date : Number(date)).toDateString().split(' ');
 
   const unix = new Date((date.includes('-') || date.includes(' ')) ? date : Number(date)).getTime();
-  const utc = dateElems[0].concat(', ').concat(dateElems.slice(1, dateElems.length).concat('GMT').join(' '));
+  const utc = dateElems[0].concat(', ').concat(dateElems.slice(1, dateElems.length).concat('00:00:00 GMT').join(' '));
 
   const dateObj = { unix, utc };
+  
   return dateObj;
-
-
 };
 
 // your first API endpoint... 
