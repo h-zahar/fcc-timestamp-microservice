@@ -22,13 +22,13 @@ const getDateObj = (req) => {
   let { date } = req.params;
   date = date === undefined ? new Date().toDateString() : date;
 
-  const strDate = new Date((date.includes('-') || date.includes(' ')) ? date : Number(date)).toDateString();
+  const strDate = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).toDateString();
 
   if (strDate === "Invalid Date") return { error: strDate };
 
-  const dateElems = new Date((date.includes('-') || date.includes(' ')) ? date : Number(date)).toDateString().split(' ');
+  const dateElems = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).toDateString().split(' ');
 
-  const unix = new Date((date.includes('-') || date.includes(' ')) ? date : Number(date)).getTime();
+  const unix = new Date((date.includes('-') || date.includes(' ') || date.includes(',')) ? date : Number(date)).getTime();
   const utc = dateElems[0].concat(', ').concat(dateElems.slice(1, dateElems.length).concat('00:00:00 GMT').join(' '));
 
   const dateObj = { unix, utc };
